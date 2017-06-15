@@ -1,0 +1,10 @@
+*.pyc
+*.egg-info/
+*.bak
+Thumbs.db
+dist/
+build/
+html/
+doc-style.css
+mk2pylint.cfg
+.coverage
