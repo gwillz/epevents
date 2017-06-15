@@ -1,5 +1,5 @@
-from epevent import Event
-from epevent.utils import ensure_fire, check_missing, ArgsError
+from epevents import Event
+from epevents.utils import ensure_fire, check_missing, ArgsError
 
 class Strict(Event):
     """
