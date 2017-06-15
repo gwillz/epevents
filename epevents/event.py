@@ -1,6 +1,6 @@
-# event.py (simple)
-
 class Event(object):
+    "C# style events for Python"
+    
     def __init__(self):
         self.handlers = []
     
@@ -12,9 +12,16 @@ class Event(object):
         self.handlers.remove(handler)
         return self
     
-    def fire(self, sender, earg=None):
-        for handler in self.handlers:
-            handler(sender, earg)
+    def clear(self):
+        "Remove all handlers"
+        self.handlers = []
+    
+    def fire(self, sender, eargs=None):
+        "Immediately execute each of the handlers with sender and eargs and parameters."
+        return tuple(h(sender, eargs) for h in self.handlers)
+    
+    def __contains__(self, handler):
+        return handler in self.handlers
     
     __iadd__ = add
     __isub__ = remove
