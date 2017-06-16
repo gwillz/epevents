@@ -18,6 +18,7 @@ setup(name='epevents',
       url='https://git.mk2es.com.au/mk2/epevents',
       packages=['epevents'],
       classifiers=[
+        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.3",
         "Operating System :: OS Independent",
