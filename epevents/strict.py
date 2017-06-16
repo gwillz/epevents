@@ -21,11 +21,14 @@ class Strict(Event):
         yield from ensure_fire(self.handlers, args)
     
     def add(self, handler):
-        varnames = handler.__code__.co_varnames
-        if isinstance(handler, types.MethodType):
-            varnames = varnames[1:]
+        argcount = handler.__code__.co_argcount
+        argnames = handler.__code__.co_varnames[:argcount]
         
-        check_missing(self.args, varnames)
+        # remove 'self'
+        if isinstance(handler, types.MethodType):
+            argnames = argnames[1:]
+        
+        check_missing(self.args, argnames)
         return Event.add(self, handler)
     
     __iadd__ = add
