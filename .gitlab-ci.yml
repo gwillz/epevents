@@ -1,0 +1,51 @@
+stages:
+ - test
+ - build
+ - deploy
+
+pypi:
+ stage: build
+ only:
+ - master
+ - tags
+ artifacts:
+  paths:
+  - dist/
+ tags:
+ - python3
+ - linux
+ script:
+ - python3 setup.py bdist_wheel
+
+lint:
+ stage: test
+ tags:
+ - python3
+ - linux
+ script:
+ - wget https://git.mk2es.com.au/snippets/8/raw -O mk2pylint.cfg -q
+ - python3 -m pylint --rcfile=mk2pylint.cfg epevents --reports=no || [[ $(($? & 3)) == 0 ]]
+
+units:
+ stage: test
+ tags:
+ - python3
+ - linux
+ script:
+ - python3 -Bm coverage run --source=epevents -m unittest tests/*.py
+ - python3 -Bm coverage report -m
+
+deploy:
+ stage: deploy
+ allow_failure: true
+ dependencies:
+ - pypi
+ only:
+ - master
+ - tags
+ tags:
+ - linux
+ - mk2-docs
+ script:
+ - '[ -e /srv/pypi/packages/epevents ] || mkdir /srv/pypi/packages/epevents'
+ - cp dist/*.whl /srv/pypi/packages/epevents
