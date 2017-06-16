@@ -18,7 +18,11 @@ class Strict(Event):
     
     def fire(self, *args):
         check_missing(self.args, args)
-        yield from ensure_fire(self.handlers, args)
+        
+        with ensure_fire(self.handlers, args) as results:
+            pass
+        # any exceptions will fire here
+        return results
     
     def add(self, handler):
         argcount = handler.__code__.co_argcount

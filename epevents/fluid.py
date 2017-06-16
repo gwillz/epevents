@@ -9,6 +9,9 @@ class Fluid(Event):
     """
     
     def fire(self, *args):
-        yield from ensure_fire(self.handlers, args, wrap=fire_me)
+        with ensure_fire(self.handlers, args, wrap=fire_me) as results:
+            pass
+        # any exceptions will fire here
+        return results
     
     __call__ = fire

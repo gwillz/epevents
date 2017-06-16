@@ -1,4 +1,5 @@
 import types
+from contextlib import contextmanager
 
 def fire_me(handler, *args):
     """
@@ -22,22 +23,22 @@ def fire_me(handler, *args):
         return handler(*args)
 
 
+@contextmanager
 def ensure_fire(handlers, args, wrap=None):
     "This holds any errors raised until all handlers have been fired"
-    errors = []
+    results, errors = [], []
     
     for h in handlers:
         try:
-            if wrap:
-                yield wrap(h, *args)
-            else:
-                yield h(*args)
-        
+            results.append(wrap(h, *args) if wrap else h(*args))
         except Exception as e: # pylint: disable=broad-except
             errors.append(e)
     
-    for e in errors:
-        raise e
+    # this goes into the 'as' variable
+    yield results
+    
+    # this throws any errors after exiting the context manager
+    for e in errors: raise e
 
 
 def check_missing(args, verify):
