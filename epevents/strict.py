@@ -1,3 +1,4 @@
+import types
 from epevents import Event
 from epevents.utils import ensure_fire, check_missing, ArgsError
 
@@ -20,7 +21,11 @@ class Strict(Event):
         yield from ensure_fire(self.handlers, args)
     
     def add(self, handler):
-        check_missing(self.args, handler.__code__.co_varnames)
+        varnames = handler.__code__.co_varnames
+        if isinstance(handler, types.MethodType):
+            varnames = varnames[1:]
+        
+        check_missing(self.args, varnames)
         return Event.add(self, handler)
     
     __iadd__ = add
