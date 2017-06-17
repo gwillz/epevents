@@ -15,7 +15,7 @@ setup(name='epevents',
       long_description=get_long_description('README.md'),
       author='Gwilyn Saunders / Masaaki Shibata',
       author_email='gwilyn.saunders@mk2es.com.au',
-      url='https://git.mk2es.com.au/mk2/epevents',
+      url='https://git.mk2es.com.au/gwillz/epevents',
       packages=['epevents'],
       classifiers=[
         "Programming Language :: Python :: 2.7",

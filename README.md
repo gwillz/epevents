@@ -2,8 +2,8 @@ EmptyPage Events
 ================
 From http://emptypage.jp/notes/pyevent.en.html
 
-![build status](https://git.mk2es.com.au/mk2/epevents/badges/master/build.svg)
-![coverage report](https://git.mk2es.com.au/mk2/epevents/badges/master/coverage.svg)
+![build status](https://git.mk2es.com.au/gwillz/epevents/badges/master/build.svg)
+![coverage report](https://git.mk2es.com.au/gwillz/epevents/badges/master/coverage.svg)
 
 
 This library builds on the events API described by Masaaki Shibata.
@@ -51,7 +51,6 @@ ev.fire(1,2)
 Authors
 -------
 - [Gwilyn Saunders](https://git.gwillz.com.au/u/gwillz)
-- [MK2 Engineering Solutions](https://mk2engineeringsolutions.com.au)
 - [Masaaki Shibata](http://emptypage.jp)
 
 
