@@ -17,10 +17,10 @@ def fire_me(handler, *args):
     if len(args) >= argc:
         return handler(*args[:argc])
     
-    if len(args) < argc:
-        argc -= len(args)
-        args = args + tuple(None for _ in range(argc))
-        return handler(*args)
+    # assume len(args) < argc
+    argc -= len(args)
+    args = args + tuple(None for _ in range(argc))
+    return handler(*args)
 
 
 @contextmanager
