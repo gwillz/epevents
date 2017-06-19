@@ -9,18 +9,24 @@ def fire_me(handler, *args):
     @param handler: callable function/method type
     @params ...: anything to pass to handler
     """
+    try: # decorator support
+        wrapped = handler.__wrapped__
+    except AttributeError:
+        wrapped = handler
     
-    argc = handler.__code__.co_argcount
-    if isinstance(handler, types.MethodType):
+    # method support
+    argc = wrapped.__code__.co_argcount
+    if isinstance(wrapped, types.MethodType):
         argc -= 1
     
+    # too many args
     if len(args) >= argc:
         return handler(*args[:argc])
     
-    # assume len(args) < argc
-    argc -= len(args)
-    args = args + tuple(None for _ in range(argc))
-    return handler(*args)
+    # too little args
+    else: # len(args) < argc
+        args = args + tuple(None for _ in range(argc - len(args)))
+        return handler(*args)
 
 
 @contextmanager
