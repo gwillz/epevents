@@ -2,11 +2,16 @@ import unittest
 from functools import wraps
 from epevents.utils import fire_me
 
+
 def two_args(one, two):
     return one, two
 
 def no_args():
     return 'no-args'
+
+class method_args(object):
+    def args(self, one, two):
+        return one, two
 
 def decorate(fn):
     @wraps(fn)
@@ -18,12 +23,11 @@ def decorate(fn):
 def decorated_args(one, two, three):
     return one, two, three
 
-class method_args(object):
-    def args(self, one, two):
-        return one, two
+def variable_args(*args):
+    return args
+
 
 class FireMe_test(unittest.TestCase):
-    
     def test_none(self):
         "Missing args are filled with 'None'"
         actual = fire_me(two_args)
@@ -58,4 +62,10 @@ class FireMe_test(unittest.TestCase):
         "Decorated functions don't always have the same argcount"
         actual = fire_me(decorated_args, 1, 2, 3)
         expected = 3, 2, 1
+        self.assertEqual(actual, expected)
+    
+    def test_varargs(self):
+        "Variable arg functions don't need any arg modification"
+        actual = fire_me(variable_args, 5, 5, 5, 6)
+        expected = 5, 5, 5, 6
         self.assertEqual(actual, expected)
