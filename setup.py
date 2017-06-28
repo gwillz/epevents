@@ -10,7 +10,7 @@ def get_long_description(fname):
         return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
 setup(name='epevents',
-      version="0.1",
+      version="0.2",
       description="A C# style event library",
       long_description=get_long_description('README.md'),
       author='Gwilyn Saunders / Masaaki Shibata',
