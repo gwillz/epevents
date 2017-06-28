@@ -35,6 +35,12 @@ class Strict(Event):
         check_missing(self.args, argnames)
         return Event.add(self, handler)
     
-    __iadd__ = add
     __call__ = fire
+    __iadd__ = add
+    
+    def __repr__(self):
+        return "<StrictEvent object, accepts: [{}]>".format(", ".join(self.args))
+    
+    __unicode__ = __repr__
+    __str__ = __repr__
     

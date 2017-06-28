@@ -55,3 +55,12 @@ class Strict_test(unittest.TestCase):
             (o, 1, 2)
         ]
         self.assertEqual(actual, expected)
+    
+    def test_repr(self):
+        "Return a nice summary of the args when printed"
+        e = Event('one', 'two', 'three')
+        
+        actual = repr(e)
+        self.assertTrue("one" in actual)
+        self.assertTrue("two" in actual)
+        self.assertTrue("three" in actual)
