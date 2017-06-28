@@ -26,3 +26,9 @@ class Event(object):
     __iadd__ = add
     __isub__ = remove
     __call__ = fire
+    
+    def __repr__(self): # pragma: no cover
+        return "<Event object, {} handlers>".format(len(self.handlers))
+    
+    __unicode__ = __repr__
+    __str__ = __repr__

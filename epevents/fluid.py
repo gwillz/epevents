@@ -15,3 +15,9 @@ class Fluid(Event):
         return results
     
     __call__ = fire
+    
+    def __repr__(self): # pragma: no cover
+        return "<FluidEvent object, {} handlers>".format(len(self.handlers))
+    
+    __unicode__ = __repr__
+    __str__ = __repr__

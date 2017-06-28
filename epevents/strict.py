@@ -39,7 +39,9 @@ class Strict(Event):
     __iadd__ = add
     
     def __repr__(self):
-        return "<StrictEvent object, accepts: [{}]>".format(", ".join(self.args))
+        return "<StrictEvent object, {} handlers, accepts: [{}]>".format(
+            len(self.handlers),
+            ", ".join(self.args))
     
     __unicode__ = __repr__
     __str__ = __repr__
